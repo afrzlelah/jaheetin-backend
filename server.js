@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import cors from "cors";
 import db from "./db/conn.js";
 import responses from "./template/responses.js";
@@ -37,7 +37,11 @@ app.get("/toko/find", (req, res, next) => {
     }
   );
 });
-app.get("/toko/products/:nama", (req, res, next) => {
-  res.send("<p>send data produk </p>");
+app.get("/toko/products/product", (req, res, next) => {
+  const id = req.query.id;
+  const querySql = `SELECT * FROM barang WHERE id=?`;
+  db.query(querySql, [id], (err, result) => {
+    responses(200, result, "ok", res);
+  });
 });
 app.listen(PORT, () => console.log(`Server running at port:${PORT}...`));
