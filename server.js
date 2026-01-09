@@ -37,8 +37,9 @@ app.get("/toko/find", (req, res, next) => {
     }
   );
 });
-app.get("/toko/products/product", (req, res, next) => {
-  const id = req.query.id;
+app.get("/toko/products/product/:id", (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
   const querySql = `SELECT * FROM barang WHERE id=?`;
   db.query(querySql, [id], (err, result) => {
     responses(200, result, "ok", res);
