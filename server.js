@@ -7,7 +7,7 @@ const PORT = 3001;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://192.168.1.15:5173"],
     method: ["get"],
     credentials: true,
   })
@@ -39,7 +39,6 @@ app.get("/toko/find", (req, res, next) => {
 });
 app.get("/toko/products/product/:id", (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
   const querySql = `SELECT * FROM barang WHERE id=?`;
   db.query(querySql, [id], (err, result) => {
     responses(200, result, "ok", res);
